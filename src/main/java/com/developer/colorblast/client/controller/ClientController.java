@@ -53,7 +53,7 @@ public class ClientController {
 
     @PutMapping
     public ClientEntity updateClient(@RequestBody ClientEntity clientEntity) {
-        clientService.deleteClient(clientEntity.getId());
+        //clientService.deleteClient(clientEntity.getId());
         return clientService.updateClient(clientEntity);
     }
 

@@ -8,6 +8,7 @@ import com.developer.colorblast.client.repository.ClientRepository;
 import com.developer.colorblast.client.service.ClientService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientEntity updateClient(ClientEntity clientEntity) {
+        if (!clientRepository.existsById(clientEntity.getId())) {
+            throw new EntityNotFoundException("ClientEntity with ID " + clientEntity.getId() + " not found");
+        }
         return clientRepository.save(clientEntity);
     }
 

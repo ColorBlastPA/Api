@@ -8,6 +8,7 @@ import com.developer.colorblast.pro.repository.ProfessionnelRepository;
 import com.developer.colorblast.pro.service.ProfessionnelService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,9 @@ public class ProfessionelServiceImpl implements ProfessionnelService {
 
     @Override
     public ProfessionnelEntity updateProfessionnel(ProfessionnelEntity professionnelEntity) {
+        if (!professionnelRepository.existsById(professionnelEntity.getId())) {
+            throw new EntityNotFoundException("ProEntity with ID " + professionnelEntity.getId() + " not found");
+        }
         return professionnelRepository.save(professionnelEntity);
     }
 

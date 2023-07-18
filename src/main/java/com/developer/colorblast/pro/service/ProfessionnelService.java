@@ -1,8 +1,5 @@
 package com.developer.colorblast.pro.service;
 
-import com.developer.colorblast.client.dto.request.ClientRequest;
-import com.developer.colorblast.client.dto.response.ClientResponse;
-import com.developer.colorblast.client.entity.ClientEntity;
 import com.developer.colorblast.pro.dto.request.ProfessionnelRequest;
 import com.developer.colorblast.pro.dto.response.ProfessionnelResponse;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;

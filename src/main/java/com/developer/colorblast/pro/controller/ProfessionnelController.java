@@ -37,7 +37,7 @@ public class ProfessionnelController {
 
     @PutMapping
     public ProfessionnelEntity updateProfessionnel(@RequestBody ProfessionnelEntity professionnelEntity) {
-        professionnelService.deleteProfessionnel(professionnelEntity.getId());
+        //professionnelService.deleteProfessionnel(professionnelEntity.getId());
         return professionnelService.updateProfessionnel(professionnelEntity);
     }
 
