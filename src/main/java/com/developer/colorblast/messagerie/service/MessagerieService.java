@@ -9,10 +9,10 @@ public interface MessagerieService {
     Optional<MessagerieEntity> findById(Long id);
     MessagerieEntity saveMessagerie(MessagerieEntity messagerieEntity);
     MessagerieEntity updateMessagerie(MessagerieEntity messagerieEntity);
-
+    void deleteMessagerie(Long id);
     List<MessagerieEntity> getMessageriesByIdClient(Long idClient);
 
     List<MessagerieEntity> getMessageriesByIdPro(Long idPro);
-    void deleteMessagerie(Long id);
+
 }
 
