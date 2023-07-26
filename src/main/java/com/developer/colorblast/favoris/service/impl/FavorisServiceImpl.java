@@ -26,11 +26,10 @@ public class FavorisServiceImpl implements FavorisService {
     public List<FavorisEntity> getAllFavoris() {
         return favorisRepository.findAll();
     }
-
-    /*@Override
-    public List<FavorisEntity> getFavorisByClientId(Long id_client) {
-        return favorisRepository.getFavorisByClientId(id_client);
-    }*/
+    @Override
+    public void deleteFavoris(Long id) {
+        favorisRepository.deleteById(id);
+    }
 
 }
 

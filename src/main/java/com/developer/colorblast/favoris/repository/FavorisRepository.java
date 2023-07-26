@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface FavorisRepository extends JpaRepository<FavorisEntity, Long> {
 
-    //List<FavorisEntity> getFavorisByClientId(Long idClient);
+
 
 }

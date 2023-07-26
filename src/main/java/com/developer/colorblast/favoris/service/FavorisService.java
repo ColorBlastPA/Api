@@ -9,5 +9,5 @@ public interface FavorisService {
     FavorisEntity saveFavoris(FavorisEntity favorisEntity);
     List<FavorisEntity> getAllFavoris();
 
-    //List<FavorisEntity> getFavorisByClientId(Long id_client);
+    void deleteFavoris(Long id);
 }

@@ -73,4 +73,25 @@ public class ClientController {
         return clientService.updateClient(clientRequest, id);
     }
 
+
+    @PostMapping("/checkEmail")
+    public ResponseEntity<?> checkEmailExists(@RequestBody Map<String, String> emailRequest) {
+        String email = emailRequest.get("email");
+
+        if (clientService.existsByEmail(email)) {
+            return ResponseEntity.ok("Un compte avec cet e-mail existe déjà.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/findByMail/{email}")
+    public ResponseEntity<ClientEntity> findClientByMail(@PathVariable String email) {
+        Optional<ClientEntity> client = clientService.findByMail(email);
+        if (client.isPresent()) {
+            return ResponseEntity.ok(client.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

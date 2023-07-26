@@ -1,5 +1,6 @@
 package com.developer.colorblast.favoris.controller;
 
+import com.developer.colorblast.favoris.dto.request.FavorisRequest;
 import com.developer.colorblast.favoris.entity.FavorisEntity;
 import com.developer.colorblast.favoris.service.FavorisService;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;
@@ -33,7 +34,7 @@ public class FavorisController {
 
 
     @GetMapping("/{id_client}")
-    public List<ProfessionnelEntity> getFavorisByIdClient(@PathVariable(name = "id_client") Long id_client) {
+    public List<ProfessionnelEntity> getProByIdClient(@PathVariable(name = "id_client") Long id_client) {
         List<FavorisEntity> allFavoris = favorisService.getAllFavoris();
         List<FavorisEntity> myFavoris = new ArrayList<>();
         List<ProfessionnelEntity> result = new ArrayList<>();
@@ -52,7 +53,19 @@ public class FavorisController {
         return result;
     }
 
-
+    @PostMapping("/delete")
+    public void deleteFavoris(@RequestBody FavorisRequest favorisRequest){
+        List<FavorisEntity> allFavoris = favorisService.getAllFavoris();
+        System.out.println(favorisRequest.getId_client());
+        System.out.println(favorisRequest.getId_pro());
+        for (FavorisEntity favoris : allFavoris) {
+            if (favoris.getId_client().equals(favorisRequest.getId_client())) {
+                if(favoris.getId_pro().equals(favorisRequest.getId_pro())){
+                    favorisService.deleteFavoris(favoris.getId());
+                }
+            }
+        }
+    }
 
 
 

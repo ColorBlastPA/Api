@@ -75,4 +75,15 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findByMailAndPassword(mail, password);
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return clientRepository.existsByMail(email);
+    }
+
+    @Override
+    public Optional<ClientEntity> findByMail(String email) {
+        return clientRepository.findByMail(email);
+    }
+
+
 }

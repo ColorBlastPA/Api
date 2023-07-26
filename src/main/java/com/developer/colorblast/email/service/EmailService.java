@@ -1,4 +1,4 @@
-package com.developer.colorblast.email;
+package com.developer.colorblast.email.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

@@ -19,4 +19,8 @@ public interface ClientService {
 
 
     Optional<ClientEntity> findByMailAndPassword(String mail, String password);
+
+    boolean existsByEmail(String email);
+
+    Optional<ClientEntity> findByMail(String email);
 }
