@@ -17,12 +17,8 @@ public class LineEntity {
     @Column(name = "id_messagerie")
     private Long idMessagerie;
 
-    @Column(name = "id_sender")
-    private Long idSender;
-
-    @Column(name = "id_receiver")
-    private Long idReceiver;
-
+    @Column(name = "mail")
+    private String mail;
     @Column(name = "lastname")
     private String lastname;
 
@@ -40,11 +36,10 @@ public class LineEntity {
     public LineEntity() {
     }
 
-    public LineEntity(Long id, Long idMessagerie, Long idSender, Long idReceiver, String lastname, String firstname, String content, Date date) {
+    public LineEntity(Long id, Long idMessagerie, String mail, String lastname, String firstname, String content, Date date) {
         this.id = id;
         this.idMessagerie = idMessagerie;
-        this.idSender = idSender;
-        this.idReceiver = idReceiver;
+        this.mail = mail;
         this.lastname = lastname;
         this.firstname = firstname;
         this.content = content;
@@ -99,19 +94,12 @@ public class LineEntity {
         this.date = date;
     }
 
-    public Long getIdSender() {
-        return idSender;
+
+    public String getMail() {
+        return mail;
     }
 
-    public void setIdSender(Long idSender) {
-        this.idSender = idSender;
-    }
-
-    public Long getIdReceiver() {
-        return idReceiver;
-    }
-
-    public void setIdReceiver(Long idReceiver) {
-        this.idReceiver = idReceiver;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
