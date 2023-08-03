@@ -17,11 +17,11 @@ public class LineEntity {
     @Column(name = "id_messagerie")
     private Long idMessagerie;
 
-    @Column(name = "id_client")
-    private Long idClient;
+    @Column(name = "id_sender")
+    private Long idSender;
 
-    @Column(name = "id_pro")
-    private Long idPro;
+    @Column(name = "id_receiver")
+    private Long idReceiver;
 
     @Column(name = "lastname")
     private String lastname;
@@ -40,11 +40,11 @@ public class LineEntity {
     public LineEntity() {
     }
 
-    public LineEntity(Long id, Long idMessagerie, Long idClient, Long idPro, String lastname, String firstname, String content, Date date) {
+    public LineEntity(Long id, Long idMessagerie, Long idSender, Long idReceiver, String lastname, String firstname, String content, Date date) {
         this.id = id;
         this.idMessagerie = idMessagerie;
-        this.idClient = idClient;
-        this.idPro = idPro;
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
         this.lastname = lastname;
         this.firstname = firstname;
         this.content = content;
@@ -99,19 +99,19 @@ public class LineEntity {
         this.date = date;
     }
 
-    public Long getIdClient() {
-        return idClient;
+    public Long getIdSender() {
+        return idSender;
     }
 
-    public void setIdClient(Long idClient) {
-        this.idClient = idClient;
+    public void setIdSender(Long idSender) {
+        this.idSender = idSender;
     }
 
-    public Long getIdPro() {
-        return idPro;
+    public Long getIdReceiver() {
+        return idReceiver;
     }
 
-    public void setIdPro(Long idPro) {
-        this.idPro = idPro;
+    public void setIdReceiver(Long idReceiver) {
+        this.idReceiver = idReceiver;
     }
 }
