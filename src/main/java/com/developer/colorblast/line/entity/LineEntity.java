@@ -17,6 +17,12 @@ public class LineEntity {
     @Column(name = "id_messagerie")
     private Long idMessagerie;
 
+    @Column(name = "id_client")
+    private Long idClient;
+
+    @Column(name = "id_pro")
+    private Long idPro;
+
     @Column(name = "lastname")
     private String lastname;
 
@@ -34,9 +40,11 @@ public class LineEntity {
     public LineEntity() {
     }
 
-    public LineEntity(Long id, Long idMessagerie, String lastname, String firstname, String content, Date date) {
+    public LineEntity(Long id, Long idMessagerie, Long idClient, Long idPro, String lastname, String firstname, String content, Date date) {
         this.id = id;
         this.idMessagerie = idMessagerie;
+        this.idClient = idClient;
+        this.idPro = idPro;
         this.lastname = lastname;
         this.firstname = firstname;
         this.content = content;
@@ -89,5 +97,21 @@ public class LineEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Long getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
+    }
+
+    public Long getIdPro() {
+        return idPro;
+    }
+
+    public void setIdPro(Long idPro) {
+        this.idPro = idPro;
     }
 }
