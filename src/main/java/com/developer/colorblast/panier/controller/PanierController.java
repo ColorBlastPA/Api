@@ -1,11 +1,15 @@
 package com.developer.colorblast.panier.controller;
 
+import com.developer.colorblast.panier.dto.PanierData;
 import com.developer.colorblast.panier.entity.PanierEntity;
 import com.developer.colorblast.panier.service.PanierService;
+import com.developer.colorblast.product.entity.ProductEntity;
+import com.developer.colorblast.product.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +19,11 @@ public class PanierController {
 
     private final PanierService panierService;
 
-    public PanierController(PanierService panierService) {
+    private final ProductService productService;
+
+    public PanierController(PanierService panierService, ProductService productService) {
         this.panierService = panierService;
+        this.productService = productService;
     }
 
     @PostMapping
@@ -45,9 +52,16 @@ public class PanierController {
     }
 
     @GetMapping("/client/{clientId}")
-    public ResponseEntity<List<PanierEntity>> getPaniersByClientId(@PathVariable Long clientId) {
+    public ResponseEntity<List<PanierData>> getPaniersByClientId(@PathVariable Long clientId) {
+        List<PanierData> datas = new ArrayList<>();
         List<PanierEntity> paniers = panierService.findPaniersByClientId(clientId);
-        return new ResponseEntity<>(paniers, HttpStatus.OK);
+
+        for (PanierEntity panier : paniers) {
+            Optional<ProductEntity> product = productService.findById(panier.getIdProduct());
+            datas.add(new PanierData(panier.getId(),product.get()));
+        }
+
+        return new ResponseEntity<>(datas, HttpStatus.OK);
     }
 
 
