@@ -5,13 +5,15 @@ import com.developer.colorblast.client.service.ClientService;
 import com.developer.colorblast.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import java.security.SecureRandom;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 public class EmailController {
 
@@ -27,13 +29,29 @@ public class EmailController {
     @GetMapping("/send-email")
     public String sendEmail() {
         String to = "kevin.mazure.km@gmail.com";
-        String subject = "Test d'envoi d'e-mail";
-        String body = "Ceci est un e-mail de test envoyé depuis Spring Boot.";
+        String link = "http://localhost:3000/commentProduct/a6f0d4f7-9c3e-4e79-8522-7c9fda3etest";
 
-        emailService.sendEmail(to, subject, body);
-
-        return "E-mail envoyé avec succès.";
+        try {
+            emailService.sendEmailWithLink(to, link);
+            return "E-mail envoyé avec succès.";
+        } catch (MessagingException e) {
+            return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
+        }
     }
+
+    @GetMapping("/commentProduct/{email}/{key}")
+    public String sendCommentProductEmail(@PathVariable String email, @PathVariable String key) {
+        String to = email;
+        String link = "http://localhost:3000/commentProduct/"+key;
+
+        try {
+            emailService.sendEmailWithLink(to, link);
+            return "E-mail envoyé avec succès.";
+        } catch (MessagingException e) {
+            return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
+        }
+    }
+
 
 
     @GetMapping("/forgotPassword/{email}")

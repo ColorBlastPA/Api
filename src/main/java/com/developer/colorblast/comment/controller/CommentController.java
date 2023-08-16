@@ -1,22 +1,30 @@
 package com.developer.colorblast.comment.controller;
 
+import com.developer.colorblast.client.entity.ClientEntity;
+import com.developer.colorblast.client.service.ClientService;
+import com.developer.colorblast.comment.dto.CommentRequest;
 import com.developer.colorblast.comment.entity.CommentEntity;
 import com.developer.colorblast.comment.service.CommentService;
+import com.developer.colorblast.favoris.entity.FavorisEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
 
     private final CommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    private final ClientService clientService;
+
+    public CommentController(CommentService commentService, ClientService clientService) {
         this.commentService = commentService;
+        this.clientService = clientService;
     }
 
     @GetMapping
@@ -32,11 +40,24 @@ public class CommentController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<CommentEntity> createComment(@RequestBody CommentEntity commentEntity) {
-        CommentEntity savedComment = commentService.saveComment(commentEntity);
-        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
+    @PostMapping("/create/{idClient}")
+    public ResponseEntity<List<CommentEntity>> createComment(@RequestBody List<CommentRequest> commentRequests, @PathVariable Long idClient) {
+        Optional<ClientEntity> client = clientService.findById(idClient);
+        List<CommentEntity> result = new ArrayList<>();
+        for (CommentRequest commentRequest : commentRequests) {
+            CommentEntity newComment = new CommentEntity();
+            newComment.setIdProduct(commentRequest.getIdProduct());
+            newComment.setFirstname(client.get().getFirstname());
+            newComment.setLastname(client.get().getLastname());
+            newComment.setContent(commentRequest.getContent());
+            newComment.setNote(commentRequest.getNote());
+            CommentEntity savedComment = commentService.saveComment(newComment);
+            result.add(savedComment);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CommentEntity> updateComment(@PathVariable Long id, @RequestBody CommentEntity commentEntity) {
