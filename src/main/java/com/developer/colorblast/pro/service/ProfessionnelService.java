@@ -1,5 +1,6 @@
 package com.developer.colorblast.pro.service;
 
+import com.developer.colorblast.client.entity.ClientEntity;
 import com.developer.colorblast.pro.dto.request.ProfessionnelRequest;
 import com.developer.colorblast.pro.dto.response.ProfessionnelResponse;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;
@@ -13,6 +14,10 @@ public interface ProfessionnelService {
     ProfessionnelEntity saveProfessionnel(ProfessionnelEntity professionnelEntity);
     ProfessionnelEntity updateProfessionnel(ProfessionnelEntity professionnelEntity);
     void deleteProfessionnel(Long id);
+
+    Optional<ProfessionnelEntity> findByMail(String email);
+
+    Optional<ProfessionnelEntity> findByMailAndPassword(String mail, String password);
 
     ProfessionnelResponse saveProfessionnel(ProfessionnelRequest professionnelRequest);
 

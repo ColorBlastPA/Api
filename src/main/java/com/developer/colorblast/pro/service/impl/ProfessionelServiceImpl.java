@@ -50,6 +50,16 @@ public class ProfessionelServiceImpl implements ProfessionnelService {
     }
 
     @Override
+    public Optional<ProfessionnelEntity> findByMail(String email) {
+        return professionnelRepository.findByMail(email);
+    }
+
+    @Override
+    public Optional<ProfessionnelEntity> findByMailAndPassword(String mail, String password) {
+        return professionnelRepository.findByMailAndPassword(mail, password);
+    }
+
+    @Override
     public ProfessionnelResponse saveProfessionnel(ProfessionnelRequest professionnelRequest) {
         ProfessionnelEntity professionnelEntity = ProfessionnelMapper.MAPPER.fromRequestToEntity(professionnelRequest);
         professionnelRepository.save(professionnelEntity);
