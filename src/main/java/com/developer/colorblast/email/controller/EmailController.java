@@ -34,7 +34,7 @@ public class EmailController {
     @GetMapping("/send-email")
     public String sendEmail() {
         String to = "kevin.mazure.km@gmail.com";
-        String link = "http://localhost:3000/commentProduct/a6f0d4f7-9c3e-4e79-8522-7c9fda3etest";
+        String link = "https://bo-colorblast.current.ovh/commentProduct/a6f0d4f7-9c3e-4e79-8522-7c9fda3etest";
 
         try {
             emailService.sendEmailWithLink(to, link);
@@ -47,7 +47,7 @@ public class EmailController {
     @GetMapping("/commentProduct/{email}/{key}")
     public String sendCommentProductEmail(@PathVariable String email, @PathVariable String key) {
         String to = email;
-        String link = "http://localhost:3000/commentProduct/"+key;
+        String link = "https://bo-colorblast.current.ovh/commentProduct/"+key;
 
         try {
             emailService.sendEmailWithLink(to, link);
