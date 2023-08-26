@@ -11,5 +11,7 @@ public interface ProductService {
     ProductEntity saveProduct(ProductEntity productEntity);
     ProductEntity updateProduct(ProductEntity productEntity);
     void deleteProduct(Long id);
+
+    List<ProductEntity> getProductsByCategories(List<ProductEntity.Category> categories);
 }
 

@@ -49,5 +49,10 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/search")
+    public List<ProductEntity> getProductsByCategories(@RequestBody List<ProductEntity.Category> categories) {
+        return productService.getProductsByCategories(categories);
+    }
 }
 
