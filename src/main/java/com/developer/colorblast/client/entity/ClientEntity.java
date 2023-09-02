@@ -33,8 +33,6 @@ public class ClientEntity {
     private String city;
     @Column(name = "address")
     private String address;
-    @Column(name = "is_admin")
-    private Boolean is_admin;
 
     @Column(name = "avatar")
     private String avatar;
@@ -44,7 +42,7 @@ public class ClientEntity {
     }
 
 
-    public ClientEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String address, Boolean is_admin, String avatar) {
+    public ClientEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String address, String avatar) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -55,7 +53,6 @@ public class ClientEntity {
         this.postal_code = postal_code;
         this.city = city;
         this.address = address;
-        this.is_admin = is_admin;
         this.avatar = avatar;
     }
 
@@ -139,21 +136,6 @@ public class ClientEntity {
         this.address = address;
     }
 
-    public Boolean getAdmin() {
-        return is_admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        is_admin = admin;
-    }
-
-    public Boolean getIs_admin() {
-        return is_admin;
-    }
-
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
-    }
 
     public String getAvatar() {
         return avatar;
