@@ -50,10 +50,16 @@ public class ProfessionnelEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "id_certificate")
+    private Long idCertificate;
+
+    @Column(name = "avatar")
+    private String avatar;
+
     public ProfessionnelEntity() {
     }
 
-    public ProfessionnelEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String company_name, Double price, String phone, Integer note, String description) {
+    public ProfessionnelEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String company_name, Double price, String phone, Integer note, String description, Long idCertificate, String avatar) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -68,9 +74,9 @@ public class ProfessionnelEntity {
         this.phone = phone;
         this.note = note;
         this.description = description;
+        this.idCertificate = idCertificate;
+        this.avatar = avatar;
     }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -182,6 +188,22 @@ public class ProfessionnelEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getIdCertificate() {
+        return idCertificate;
+    }
+
+    public void setIdCertificate(Long idCertificate) {
+        this.idCertificate = idCertificate;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
 

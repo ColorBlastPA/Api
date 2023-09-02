@@ -1,9 +1,11 @@
 package com.developer.colorblast.pro.controller;
 
 
-import com.developer.colorblast.client.entity.ClientEntity;
+import com.developer.colorblast.certificates.entity.CertificateEntity;
+import com.developer.colorblast.certificates.service.CertificateService;
 import com.developer.colorblast.pro.dto.request.ProfessionnelRequest;
 import com.developer.colorblast.pro.dto.response.ProfessionnelResponse;
+import com.developer.colorblast.pro.entity.ProfessionnelData;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;
 import com.developer.colorblast.pro.service.ProfessionnelService;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,11 @@ public class ProfessionnelController {
 
     private final ProfessionnelService professionnelService;
 
-    public ProfessionnelController(ProfessionnelService professionnelService) {
+    private final CertificateService certificateService;
+
+    public ProfessionnelController(ProfessionnelService professionnelService, CertificateService certificateService) {
         this.professionnelService = professionnelService;
+        this.certificateService = certificateService;
     }
 
     @GetMapping
@@ -55,8 +60,11 @@ public class ProfessionnelController {
         String password = loginRequest.get("password");
 
         Optional<ProfessionnelEntity> pro = professionnelService.findByMailAndPassword(mail, password);
+
         if (pro.isPresent()) {
-            return ResponseEntity.ok(pro.get());
+            List<CertificateEntity> certificate = certificateService.getCertificatesByProId(pro.get().getId());
+            ProfessionnelData proData = new ProfessionnelData(pro.get(),certificate.get(0));
+            return ResponseEntity.ok(proData);
         } else {
             return ResponseEntity.notFound().build();
         }

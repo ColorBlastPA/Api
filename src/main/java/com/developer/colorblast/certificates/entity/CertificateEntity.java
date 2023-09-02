@@ -20,6 +20,9 @@ public class CertificateEntity {
     @Column(name = "filename")
     private String filename;
 
+    @Column(name = "url")
+    private String url;
+
     public CertificateEntity(Long id, String idKey, Long idPro, String filename) {
         this.id = id;
         this.idKey = idKey;
@@ -29,6 +32,13 @@ public class CertificateEntity {
 
     public CertificateEntity() {
 
+    }
+
+    public CertificateEntity(String idKey, Long idPro, String originalFilename, String url) {
+        this.idKey = idKey;
+        this.idPro = idPro;
+        this.filename = originalFilename;
+        this.url = url;
     }
 
     public Long getId() {
@@ -61,5 +71,13 @@ public class CertificateEntity {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

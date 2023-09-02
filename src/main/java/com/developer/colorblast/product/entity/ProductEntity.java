@@ -20,6 +20,9 @@ public class ProductEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image")
+    private String image;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
@@ -27,11 +30,12 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(Long id, String name, double price, String description, Category category) {
+    public ProductEntity(Long id, String name, double price, String description, String image, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
+        this.image = image;
         this.category = category;
     }
 
@@ -67,6 +71,14 @@ public class ProductEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Category getCategory() {

@@ -34,6 +34,11 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
+    public List<CertificateEntity> getCertificatesByProId(Long idPro) {
+        return certificateRepository.findByIdPro(idPro);
+    }
+
+    @Override
     public void deleteCertificate(Long id) {
         certificateRepository.deleteById(id);
     }
