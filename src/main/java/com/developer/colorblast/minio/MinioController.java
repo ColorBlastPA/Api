@@ -134,9 +134,13 @@ public class MinioController {
 
         try {
             String contentType = file.getContentType();
-            if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) && !contentType.equals(MediaType.IMAGE_PNG_VALUE))) {
+            if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) &&
+                    !contentType.equals(MediaType.IMAGE_PNG_VALUE) &&
+                    !contentType.equals("image/jpeg") &&
+                    !contentType.equals("image/jpg"))) {
                 return new ResponseEntity<>("Le fichier doit être au format JPEG ou PNG.", HttpStatus.BAD_REQUEST);
             }
+
 
             minioClient.putObject(
                     PutObjectArgs.builder()
