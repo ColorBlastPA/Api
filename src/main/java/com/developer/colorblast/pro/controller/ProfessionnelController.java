@@ -3,14 +3,17 @@ package com.developer.colorblast.pro.controller;
 
 import com.developer.colorblast.certificates.entity.CertificateEntity;
 import com.developer.colorblast.certificates.service.CertificateService;
+import com.developer.colorblast.favoris.entity.FavorisEntity;
 import com.developer.colorblast.pro.dto.request.ProfessionnelRequest;
 import com.developer.colorblast.pro.dto.response.ProfessionnelResponse;
 import com.developer.colorblast.pro.entity.ProfessionnelData;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;
 import com.developer.colorblast.pro.service.ProfessionnelService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,12 +65,30 @@ public class ProfessionnelController {
         Optional<ProfessionnelEntity> pro = professionnelService.findByMailAndPassword(mail, password);
 
         if (pro.isPresent()) {
-            List<CertificateEntity> certificate = certificateService.getCertificatesByProId(pro.get().getId());
-            ProfessionnelData proData = new ProfessionnelData(pro.get(),certificate.get(0));
-            return ResponseEntity.ok(proData);
+            if(pro.get().getWaiting()){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("en attente!!!");
+            }else{
+                List<CertificateEntity> certificate = certificateService.getCertificatesByProId(pro.get().getId());
+                ProfessionnelData proData = new ProfessionnelData(pro.get(),certificate.get(0));
+                return ResponseEntity.ok(proData);
+            }
+
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/waiting")
+    public List<?> getProfessionnelsWithWaitingTrue() {
+        List<ProfessionnelEntity> pro = professionnelService.getProfessionnelsByWaitingTrue();
+        List<ProfessionnelData> result = new ArrayList<>();
+        for (ProfessionnelEntity professionnel : pro) {
+            if (professionnel.getIdCertificate() != null) {
+                ProfessionnelData data = new ProfessionnelData(professionnel,certificateService.getCertificateById(professionnel.getIdCertificate()));
+                result.add(data);
+            }
+        }
+        return result;
     }
     @PostMapping("/res")
     public ProfessionnelResponse saveProfessionnelResponse(@RequestBody ProfessionnelRequest professionnelRequest) {

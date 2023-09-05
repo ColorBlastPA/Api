@@ -22,4 +22,6 @@ public interface ProfessionnelService {
     ProfessionnelResponse saveProfessionnel(ProfessionnelRequest professionnelRequest);
 
     ProfessionnelResponse updateProfessionnel(ProfessionnelRequest professionnelRequest, Long id);
+
+    List<ProfessionnelEntity> getProfessionnelsByWaitingTrue();
 }

@@ -54,13 +54,13 @@ public class MinioController {
     @PostMapping("/upload-pdf/{idPro}")
     public ResponseEntity<String> uploadPDF(@RequestParam("file") MultipartFile file,@PathVariable Long idPro) {
         UUID randomIdKey = UUID.randomUUID();
-
+        String contentType = file.getContentType();
         try {
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucketName)
                             .object(randomIdKey.toString())
-                            .contentType("application/pdf")
+                            .contentType(contentType)
                             .stream(file.getInputStream(), file.getSize(), -1)
                             .build()
             );
@@ -172,9 +172,9 @@ public class MinioController {
 
         try {
             String contentType = file.getContentType();
-            if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) && !contentType.equals(MediaType.IMAGE_PNG_VALUE))) {
+            /*if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) && !contentType.equals(MediaType.IMAGE_PNG_VALUE))) {
                 return new ResponseEntity<>("Le fichier doit être au format JPEG ou PNG.", HttpStatus.BAD_REQUEST);
-            }
+            }*/
 
             minioClient.putObject(
                     PutObjectArgs.builder()
@@ -207,9 +207,9 @@ public class MinioController {
 
         try {
             String contentType = file.getContentType();
-            if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) && !contentType.equals(MediaType.IMAGE_PNG_VALUE))) {
+            /*if (contentType == null || (!contentType.equals(MediaType.IMAGE_JPEG_VALUE) && !contentType.equals(MediaType.IMAGE_PNG_VALUE))) {
                 return new ResponseEntity<>("Le fichier doit être au format JPEG ou PNG.", HttpStatus.BAD_REQUEST);
-            }
+            }*/
 
             minioClient.putObject(
                     PutObjectArgs.builder()

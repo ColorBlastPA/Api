@@ -78,4 +78,9 @@ public class ProfessionelServiceImpl implements ProfessionnelService {
         return ProfessionnelMapper.MAPPER.fromEntityToResponse(professionnelEntity);
     }
 
+    @Override
+    public List<ProfessionnelEntity> getProfessionnelsByWaitingTrue() {
+        return professionnelRepository.findByWaitingTrue();
+    }
+
 }

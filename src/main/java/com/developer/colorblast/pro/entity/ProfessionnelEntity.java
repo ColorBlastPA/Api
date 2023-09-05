@@ -56,10 +56,13 @@ public class ProfessionnelEntity {
     @Column(name = "avatar")
     private String avatar;
 
+    @Column(name = "waiting")
+    private Boolean waiting;
+
     public ProfessionnelEntity() {
     }
 
-    public ProfessionnelEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String company_name, Double price, String phone, Integer note, String description, Long idCertificate, String avatar) {
+    public ProfessionnelEntity(Long id, String lastname, String firstname, String mail, String password, String country, String department, String postal_code, String city, String company_name, Double price, String phone, Integer note, String description, Long idCertificate, String avatar, Boolean waiting) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -76,6 +79,7 @@ public class ProfessionnelEntity {
         this.description = description;
         this.idCertificate = idCertificate;
         this.avatar = avatar;
+        this.waiting = waiting;
     }
 
     public Long getId() {
@@ -204,6 +208,14 @@ public class ProfessionnelEntity {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Boolean getWaiting() {
+        return waiting;
+    }
+
+    public void setWaiting(Boolean waiting) {
+        this.waiting = waiting;
     }
 }
 
