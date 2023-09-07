@@ -7,6 +7,7 @@ import com.developer.colorblast.product.entity.ProductEntity;
 import com.developer.colorblast.product.service.ProductService;
 import com.developer.colorblast.productBooking.entity.ProductBookingEntity;
 import com.developer.colorblast.productBooking.service.ProductBookingService;
+import com.developer.colorblast.quote.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +25,14 @@ public class BookingController {
 
     private final ProductService productService;
 
+    private final QuoteService quoteService;
+
     @Autowired
-    public BookingController(BookingService bookingService, ProductBookingService productBookingService, ProductService productService) {
+    public BookingController(BookingService bookingService, ProductBookingService productBookingService, ProductService productService, QuoteService quoteService) {
         this.bookingService = bookingService;
         this.productBookingService = productBookingService;
         this.productService = productService;
+        this.quoteService = quoteService;
     }
 
     @PostMapping
@@ -73,6 +77,7 @@ public class BookingController {
             BookingResponse response = new BookingResponse();
             response.setBooking(booking);
             response.setProduct(products);
+            response.setQuote(quoteService.getQuotesByBookingId(booking.getId()));
 
             responses.add(response);
         }
@@ -98,6 +103,7 @@ public class BookingController {
             BookingResponse response = new BookingResponse();
             response.setBooking(booking);
             response.setProduct(products);
+            response.setQuote(quoteService.getQuotesByBookingId(booking.getId()));
 
             responses.add(response);
         }
@@ -122,6 +128,7 @@ public class BookingController {
             BookingResponse response = new BookingResponse();
             response.setBooking(booking);
             response.setProduct(products);
+            response.setQuote(quoteService.getQuotesByBookingId(booking.getId()));
 
             responses.add(response);
         }

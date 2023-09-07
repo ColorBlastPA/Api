@@ -1,4 +1,6 @@
 package com.developer.colorblast.minio;
+import com.developer.colorblast.booking.entity.BookingEntity;
+import com.developer.colorblast.booking.service.BookingService;
 import com.developer.colorblast.certificates.entity.CertificateEntity;
 import com.developer.colorblast.certificates.service.CertificateService;
 import com.developer.colorblast.client.entity.ClientEntity;
@@ -7,6 +9,8 @@ import com.developer.colorblast.pro.entity.ProfessionnelEntity;
 import com.developer.colorblast.pro.service.ProfessionnelService;
 import com.developer.colorblast.product.entity.ProductEntity;
 import com.developer.colorblast.product.service.ProductService;
+import com.developer.colorblast.quote.entity.QuoteEntity;
+import com.developer.colorblast.quote.service.QuoteService;
 import io.minio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,11 +48,17 @@ public class MinioController {
 
     private final ProductService productService;
 
-    public MinioController(CertificateService certificateService, ProfessionnelService professionnelService, ClientService clientService, ProductService productService) {
+    private final BookingService bookingService;
+
+    private final QuoteService quoteService;
+
+    public MinioController(CertificateService certificateService, ProfessionnelService professionnelService, ClientService clientService, ProductService productService, BookingService bookingService, QuoteService quoteService) {
         this.certificateService = certificateService;
         this.professionnelService = professionnelService;
         this.clientService = clientService;
         this.productService = productService;
+        this.bookingService = bookingService;
+        this.quoteService = quoteService;
     }
 
     @PostMapping("/upload-pdf/{idPro}")
@@ -75,6 +85,36 @@ public class MinioController {
                 professionnelService.updateProfessionnel(pro.get());
             }else{
                 return new ResponseEntity<>("Professionnel inexistant", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Une erreur est survenue lors de l'ajout du fichier PDF.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/upload-quote/{idBooking}")
+    public ResponseEntity<String> uploadQuote(@RequestParam("file") MultipartFile file,@PathVariable Long idBooking) {
+        UUID randomIdKey = UUID.randomUUID();
+        String contentType = file.getContentType();
+        try {
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(randomIdKey.toString())
+                            .contentType(contentType)
+                            .stream(file.getInputStream(), file.getSize(), -1)
+                            .build()
+            );
+
+            String message = "Fichier PDF ajouté avec succès : " + randomIdKey.toString();
+
+            BookingEntity booking = bookingService.getBookingById(idBooking);
+            if(booking != null){
+                QuoteEntity quote = new QuoteEntity(idBooking,randomIdKey.toString(),file.getOriginalFilename(),getUrl(randomIdKey.toString()));
+                QuoteEntity newQuote = quoteService.createQuote(quote);
+            }else{
+                return new ResponseEntity<>("booking inexistant", HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception e) {
