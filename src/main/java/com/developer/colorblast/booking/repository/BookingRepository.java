@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     List<BookingEntity> findByClientIdAndWaitingFalse(Long clientId);
+    List<BookingEntity> findByClientIdAndWaitingTrue(Long clientId);
     List<BookingEntity> findByIdProAndWaitingFalse(Long idPro);
 
     List<BookingEntity> findByIdProAndWaitingTrue(Long idPro);

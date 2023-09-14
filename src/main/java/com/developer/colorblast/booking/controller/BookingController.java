@@ -85,6 +85,31 @@ public class BookingController {
         return responses;
     }
 
+    @GetMapping("/client/{clientId}/waiting")
+    public List<BookingResponse> getBookingsByClientIdAndWaiting(@PathVariable Long clientId) {
+        List<BookingEntity> bookings = bookingService.getBookingsByClientIdAndWaiting(clientId);
+        List<BookingResponse> responses = new ArrayList<>();
+
+        for (BookingEntity booking : bookings) {
+            List<ProductBookingEntity> productBookings = productBookingService.getProductBookingsByBookingId(booking.getId());
+            List<ProductEntity> products = new ArrayList<>();
+
+            for (ProductBookingEntity productBooking : productBookings) {
+                Optional<ProductEntity> product = productService.findById(productBooking.getIdProduct());
+                product.ifPresent(products::add);
+            }
+
+            BookingResponse response = new BookingResponse();
+            response.setBooking(booking);
+            response.setProduct(products);
+            response.setQuote(quoteService.getQuotesByBookingId(booking.getId()));
+
+            responses.add(response);
+        }
+
+        return responses;
+    }
+
 
     @GetMapping("/pro/{idPro}/notwaiting")
     public List<BookingResponse> getBookingsByProIdAndNotWaiting(@PathVariable Long idPro) {

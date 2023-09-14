@@ -11,6 +11,7 @@ public interface BookingService {
     BookingEntity updateBooking(Long id, BookingEntity booking);
     void deleteBooking(Long id);
     List<BookingEntity> getBookingsByClientIdAndNotWaiting(Long clientId);
+    List<BookingEntity> getBookingsByClientIdAndWaiting(Long clientId);
     List<BookingEntity> getBookingsByProIdAndNotWaiting(Long idPro);
     List<BookingEntity> getBookingsByProIdAndWaiting(Long idPro);
 }

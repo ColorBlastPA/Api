@@ -71,6 +71,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingEntity> getBookingsByClientIdAndWaiting(Long clientId) {
+        return bookingRepository.findByClientIdAndWaitingTrue(clientId);
+    }
+
+    @Override
     public List<BookingEntity> getBookingsByProIdAndNotWaiting(Long idPro) {
         return bookingRepository.findByIdProAndWaitingFalse(idPro);
     }
