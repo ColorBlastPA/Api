@@ -9,7 +9,13 @@ public class WebSocketController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/publicChatRoom")
-    public WebSocketMessage sendMessage(WebSocketMessage message) {
+    public String sendMessage(String message) {
+        // Votre logique de traitement ici
+        if ("ping".equals(message)) {
+            // Si le message est "ping", répondez avec "pong"
+            return "pong";
+        }
+        // Autrement, traitez le message comme d'habitude
         return message;
     }
 }
