@@ -41,6 +41,18 @@ public class ProfessionnelController {
         return professionnelService.findById(id);
     }
 
+    @GetMapping("/certif/{id}")
+    public ProfessionnelData findProfessionnelByIdWithCertificate(@PathVariable("id") Long id) {
+        Optional<ProfessionnelEntity> pro = professionnelService.findById(id);
+        CertificateEntity certificate = new CertificateEntity();
+        if(pro.isPresent()){
+            certificate = certificateService.getCertificateById(pro.get().getIdCertificate());
+
+        }
+        ProfessionnelData proData = new ProfessionnelData(pro.get(), certificate);
+        return  proData;
+    }
+
     @PostMapping
     public ProfessionnelEntity saveProfessionnel(@RequestBody ProfessionnelEntity professionnelEntity) {
         return professionnelService.saveProfessionnel(professionnelEntity);
