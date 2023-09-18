@@ -2,15 +2,14 @@ package com.developer.colorblast.email.controller;
 
 import com.developer.colorblast.client.entity.ClientEntity;
 import com.developer.colorblast.client.service.ClientService;
+import com.developer.colorblast.email.Help;
 import com.developer.colorblast.email.service.EmailService;
+import com.developer.colorblast.line.entity.LineEntity;
 import com.developer.colorblast.pro.entity.ProfessionnelEntity;
 import com.developer.colorblast.pro.service.ProfessionnelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.security.SecureRandom;
@@ -42,6 +41,12 @@ public class EmailController {
         } catch (MessagingException e) {
             return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
         }
+    }
+
+    @PostMapping("/helpMail")
+    public String sendHelpEmail(@RequestBody Help help) {
+        emailService.sendHelpEmail(help.getMail(),"Demande d'aide", help.getContent());
+        return "E-mail envoyé avec succès.";
     }
 
     @GetMapping("/commentProduct/{email}/{key}")

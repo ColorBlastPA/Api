@@ -10,4 +10,5 @@ import java.util.List;
 public interface MessagerieRepository extends JpaRepository<MessagerieEntity, Long> {
     List<MessagerieEntity> findByIdClient(Long idClient);
     List<MessagerieEntity> findByIdPro(Long idPro);
+
 }

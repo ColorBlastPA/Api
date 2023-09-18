@@ -46,6 +46,7 @@ public class LineController {
         return new ResponseEntity<>(createdLine, HttpStatus.CREATED);
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<LineEntity> updateLine(@PathVariable Long id, @RequestBody LineEntity lineEntity) {
         lineEntity.setId(id);

@@ -39,6 +39,18 @@ public class MessagerieServiceImpl implements MessagerieService {
     }
 
     @Override
+    public MessagerieEntity getMessagerieByClientAndPro(Long idClient, Long idPro) {
+        List<MessagerieEntity> messagerie = messagerieRepository.findByIdClient(idClient);
+        int i = 0;
+        for( i = 0; i<messagerie.size();i++){
+            if(messagerie.get(i).getIdPro() == idPro){
+                return messagerie.get(i);
+            }
+        }
+        return new MessagerieEntity();
+    }
+
+    @Override
     public MessagerieEntity saveMessagerie(MessagerieEntity messagerieEntity) {
         return messagerieRepository.save(messagerieEntity);
     }
@@ -55,4 +67,6 @@ public class MessagerieServiceImpl implements MessagerieService {
     public void deleteMessagerie(Long id) {
         messagerieRepository.deleteById(id);
     }
+
+
 }

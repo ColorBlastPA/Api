@@ -14,5 +14,8 @@ public interface MessagerieService {
 
     List<MessagerieEntity> getMessageriesByIdPro(Long idPro);
 
+    MessagerieEntity getMessagerieByClientAndPro(Long idClient, Long idPro);
+
+
 }
 

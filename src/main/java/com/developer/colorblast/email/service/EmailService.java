@@ -28,6 +28,15 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    public void sendHelpEmail(String from, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo("colorblastpa@gmail.com");
+        message.setSubject(subject);
+        message.setText(body);
+        mailSender.send(message);
+    }
+
     public void sendEmailWithLink(String to, String link) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

@@ -106,4 +106,14 @@ public class MessagerieController {
         messagerieService.deleteMessagerie(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/get/{idClient}/{idPro}")
+    public MessagerieEntity getMessagerieByClientAndPro(
+            @PathVariable Long idClient,
+            @PathVariable Long idPro) {
+        System.out.println(idClient);
+        System.out.println(idPro);
+
+        return messagerieService.getMessagerieByClientAndPro(idClient, idPro);
+    }
 }
