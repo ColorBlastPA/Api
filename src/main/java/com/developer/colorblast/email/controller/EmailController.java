@@ -36,7 +36,7 @@ public class EmailController {
         String link = "https://bo-colorblast.current.ovh/commentProduct/a6f0d4f7-9c3e-4e79-8522-7c9fda3etest";
 
         try {
-            emailService.sendEmailWithLink(to, link);
+            emailService.sendEmailWithLinkAndButton(to, link);
             return "E-mail envoyé avec succès.";
         } catch (MessagingException e) {
             return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
@@ -55,7 +55,7 @@ public class EmailController {
         String link = "https://bo-colorblast.current.ovh/commentProduct/"+key;
 
         try {
-            emailService.sendEmailWithLink(to, link);
+            emailService.sendEmailWithLinkAndButton(to, link);
             return "E-mail envoyé avec succès.";
         } catch (MessagingException e) {
             return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
@@ -77,7 +77,7 @@ public class EmailController {
 
             String to = email;
             String subject = "Test d'envoi d'e-mail";
-            String body = "Votre nouveau mot de passe est : " + newPassword;
+            String body = newPassword;
 
             emailService.sendEmail(to, subject, body);
 
@@ -100,7 +100,7 @@ public class EmailController {
 
             String to = email;
             String subject = "Test d'envoi d'e-mail";
-            String body = "Votre nouveau mot de passe est : " + newPassword;
+            String body = newPassword;
 
             emailService.sendEmail(to, subject, body);
 
