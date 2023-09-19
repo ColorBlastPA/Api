@@ -55,11 +55,31 @@ public class EmailController {
         String link = "https://bo-colorblast.current.ovh/commentProduct/"+key;
 
         try {
-            emailService.sendEmailWithLinkAndButton(to, link);
+            emailService.sendEmailWithLinkAndButtonForProduct(to, link);
             return "E-mail envoyé avec succès.";
         } catch (MessagingException e) {
             return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
         }
+    }
+
+    @GetMapping("/commentPro/{idClient}/{IdPro}")
+    public String sendCommentProEmail(@PathVariable Long idClient, @PathVariable Long IdPro) {
+        Optional<ClientEntity> client = clientService.findById(idClient);
+        if(client.isPresent()){
+            String to = client.get().getMail();
+            String link = "https://bo-colorblast.current.ovh/commentPro/"+IdPro;
+
+            try {
+                emailService.sendEmailWithLinkAndButton(to, link);
+                return "E-mail envoyé avec succès.";
+            } catch (MessagingException e) {
+                return "Erreur lors de l'envoi de l'e-mail : " + e.getMessage();
+            }
+        }else{
+            return "User not found";
+        }
+
+
     }
 
 

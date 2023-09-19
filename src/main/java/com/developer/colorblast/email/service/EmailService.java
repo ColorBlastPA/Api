@@ -65,7 +65,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendEmailWithLinkAndButton(String to, String link) throws MessagingException {
+    public void sendEmailWithLinkAndButtonForProduct(String to, String link) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -77,6 +77,29 @@ public class EmailService {
                 + "<h1 style='color: #007bff;'>Avis produit</h1>"
                 + "<p>Merci d'avoir effectué des achats sur notre application ColorBlast.</p>"
                 + "<p>Si vous le souhaitez, vous pouvez donner votre avis sur chaque produit en cliquant sur le bouton ci-dessous :</p>"
+                + "<p><a href=\"" + link + "\">"
+                + "<button style='background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;'>Donner un avis</button>"
+                + "</a></p>"
+                + "</body>"
+                + "</html>";
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    public void sendEmailWithLinkAndButton(String to, String link) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(to);
+        helper.setSubject("Avis Service");
+
+        String content = "<html>"
+                + "<body>"
+                + "<h1 style='color: #007bff;'>Avis Service</h1>"
+                + "<p>Merci d'avoir utilisé ColorBlast pour votre service.</p>"
+                + "<p>Si vous le souhaitez, vous pouvez donner votre avis sur le service effectué en cliquant sur le bouton ci-dessous :</p>"
                 + "<p><a href=\"" + link + "\">"
                 + "<button style='background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;'>Donner un avis</button>"
                 + "</a></p>"
