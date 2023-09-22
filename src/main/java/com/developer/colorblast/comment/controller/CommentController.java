@@ -2,6 +2,7 @@ package com.developer.colorblast.comment.controller;
 
 import com.developer.colorblast.client.entity.ClientEntity;
 import com.developer.colorblast.client.service.ClientService;
+import com.developer.colorblast.comment.dto.CommentProRequest;
 import com.developer.colorblast.comment.dto.CommentRequest;
 import com.developer.colorblast.comment.entity.CommentEntity;
 import com.developer.colorblast.comment.service.CommentService;
@@ -56,6 +57,21 @@ public class CommentController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/createPro/{idClient}")
+    public ResponseEntity<CommentEntity> createProComment(@RequestBody CommentProRequest commentProRequest, @PathVariable Long idClient) {
+        Optional<ClientEntity> client = clientService.findById(idClient);
+        CommentEntity newComment = new CommentEntity();
+        newComment.setIdPro(commentProRequest.getIdPro());
+        newComment.setFirstname(client.get().getFirstname());
+        newComment.setLastname(client.get().getLastname());
+        newComment.setContent(commentProRequest.getContent());
+        newComment.setNote(commentProRequest.getNote());
+        CommentEntity savedComment = commentService.saveComment(newComment);
+
+
+        return new ResponseEntity(savedComment, HttpStatus.CREATED);
     }
 
 

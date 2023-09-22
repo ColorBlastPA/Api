@@ -67,7 +67,7 @@ public class EmailController {
         Optional<ClientEntity> client = clientService.findById(idClient);
         if(client.isPresent()){
             String to = client.get().getMail();
-            String link = "https://bo-colorblast.current.ovh/commentPro/"+IdPro;
+            String link = "https://bo-colorblast.current.ovh/commentPro/"+IdPro+"/"+idClient;
 
             try {
                 emailService.sendEmailWithLinkAndButton(to, link);
