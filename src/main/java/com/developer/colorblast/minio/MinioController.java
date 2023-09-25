@@ -275,6 +275,37 @@ public class MinioController {
         }
     }
 
+    @PostMapping("/setImagePro/{idPro}")
+    public ResponseEntity<Object> setImagePro(@RequestParam("file") MultipartFile file, @PathVariable Long idPro) {
+        UUID randomIdKey = UUID.randomUUID();
+
+        try {
+            String contentType = file.getContentType();
+
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(randomIdKey.toString())
+                            .contentType(contentType)
+                            .stream(file.getInputStream(), file.getSize(), -1)
+                            .build()
+            );
+
+            Optional<ProfessionnelEntity> professionnelOptional = professionnelService.findById(idPro);
+            if (professionnelOptional.isPresent()) {
+                ProfessionnelEntity professionnel = professionnelOptional.get();
+                professionnel.setImage(getUrl(randomIdKey.toString()));
+                professionnelService.updateProfessionnel(professionnel);
+                return new ResponseEntity<>(professionnel, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Professionnel non trouvé avec l'ID spécifié.", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Une erreur est survenue lors de l'ajout de l'image.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @GetMapping("/download-image/{filename}")
     public ResponseEntity<InputStreamResource> downloadImage(@PathVariable String filename) {

@@ -87,9 +87,15 @@ public class MessagerieController {
 
     @PostMapping
     public ResponseEntity<MessagerieEntity> createMessagerie(@RequestBody MessagerieEntity messagerieEntity) {
-        MessagerieEntity savedMessagerie = messagerieService.saveMessagerie(messagerieEntity);
-        return new ResponseEntity<>(savedMessagerie, HttpStatus.CREATED);
+        MessagerieEntity response = messagerieService.getMessagerieByClientAndPro(messagerieEntity.getIdClient(), messagerieEntity.getIdPro());
+        if (response.getId() == null) {
+            MessagerieEntity savedMessagerie = messagerieService.saveMessagerie(messagerieEntity);
+            return new ResponseEntity<>(savedMessagerie, HttpStatus.CREATED);
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<MessagerieEntity> updateMessagerie(@PathVariable Long id, @RequestBody MessagerieEntity messagerieEntity) {
