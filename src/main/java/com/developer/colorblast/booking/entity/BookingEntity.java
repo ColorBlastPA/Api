@@ -26,6 +26,12 @@ public class BookingEntity {
     @Column(name = "firstname")
     private String firstname;
 
+    @Column(name = "pro_lastname")
+    private String proLastname;
+
+    @Column(name = "pro_firstname")
+    private String proFirstname;
+
     @Column(name = "city")
     private String city;
 
@@ -54,12 +60,14 @@ public class BookingEntity {
     public BookingEntity() {
     }
 
-    public BookingEntity(Long id, Long idClient, Long idPro, String lastname, String firstname, String city, String address, int category, float surface, Date dhDebut, Date dhFin, boolean waiting) {
+    public BookingEntity(Long id, Long idClient, Long idPro, String lastname, String firstname, String proLastname, String proFirstname, String city, String address, int category, float surface, Date dhDebut, Date dhFin, boolean waiting) {
         this.id = id;
         this.clientId = idClient;
         this.idPro = idPro;
         this.lastname = lastname;
         this.firstname = firstname;
+        this.proLastname = proLastname;
+        this.proFirstname = proFirstname;
         this.city = city;
         this.address = address;
         this.category = category;
@@ -163,6 +171,22 @@ public class BookingEntity {
 
     public void setWaiting(boolean waiting) {
         this.waiting = waiting;
+    }
+
+    public String getProLastname() {
+        return proLastname;
+    }
+
+    public void setProLastname(String proLastname) {
+        this.proLastname = proLastname;
+    }
+
+    public String getProFirstname() {
+        return proFirstname;
+    }
+
+    public void setProFirstname(String proFirstname) {
+        this.proFirstname = proFirstname;
     }
 }
 
