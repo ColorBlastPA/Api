@@ -19,6 +19,9 @@ public class PlanningEntity {
 
     @Column(name = "id_pro")
     private Long idPro;
+
+    @Column(name = "id_booking")
+    private Long idBooking;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "d_date")
@@ -34,10 +37,11 @@ public class PlanningEntity {
     public PlanningEntity() {
     }
 
-    public PlanningEntity(Long id, Long idClient, Long idPro, Date dDate, Date fDate, boolean isActif) {
+    public PlanningEntity(Long id, Long idClient, Long idPro,Long idBooking, Date dDate, Date fDate, boolean isActif) {
         this.id = id;
         this.idClient = idClient;
         this.idPro = idPro;
+        this.idBooking = idBooking;
         this.ddate = dDate;
         this.fdate = fDate;
         this.isActif = isActif;
@@ -89,6 +93,14 @@ public class PlanningEntity {
 
     public void setActif(boolean actif) {
         isActif = actif;
+    }
+
+    public Long getIdBooking() {
+        return idBooking;
+    }
+
+    public void setIdBooking(Long idBooking) {
+        this.idBooking = idBooking;
     }
 }
 

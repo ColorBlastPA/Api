@@ -60,5 +60,11 @@ public class PlanningController {
     public List<PlanningEntity> getPlanningsByProId(@PathVariable Long idPro) {
         return planningService.findPlanningsByIdPro(idPro);
     }
+
+    @DeleteMapping("/deleteByBookingId/{idBooking}")
+    public ResponseEntity<String> deleteByBookingId(@PathVariable Long idBooking) {
+        planningService.deleteByBookingId(idBooking);
+        return new ResponseEntity<>("Planning deleted successfully", HttpStatus.OK);
+    }
 }
 

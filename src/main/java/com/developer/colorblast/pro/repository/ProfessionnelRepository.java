@@ -13,4 +13,6 @@ public interface ProfessionnelRepository extends JpaRepository<ProfessionnelEnti
     Optional<ProfessionnelEntity> findByMailAndPassword(String mail, String password);
 
     List<ProfessionnelEntity> findByWaitingTrue();
+
+    List<ProfessionnelEntity> findByWaitingFalse();
 }

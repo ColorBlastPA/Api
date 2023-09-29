@@ -102,6 +102,13 @@ public class ProfessionnelController {
         }
         return result;
     }
+
+    @GetMapping("/waitingFalse")
+    public List<?> getProfessionnelsWithWaitingFalse() {
+        List<ProfessionnelEntity> pro = professionnelService.getProfessionnelsByWaitingFalse();
+
+        return pro;
+    }
     @PostMapping("/res")
     public ProfessionnelResponse saveProfessionnelResponse(@RequestBody ProfessionnelRequest professionnelRequest) {
         return professionnelService.saveProfessionnel(professionnelRequest);

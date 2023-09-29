@@ -83,4 +83,9 @@ public class ProfessionelServiceImpl implements ProfessionnelService {
         return professionnelRepository.findByWaitingTrue();
     }
 
+    @Override
+    public List<ProfessionnelEntity> getProfessionnelsByWaitingFalse() {
+        return professionnelRepository.findByWaitingFalse();
+    }
+
 }

@@ -18,4 +18,6 @@ public interface PlanningService {
 
     List<PlanningEntity> findPlanningsByIdClient(Long idClient);
     List<PlanningEntity> findPlanningsByIdPro(Long idPro);
+
+    void deleteByBookingId(Long idBooking);
 }

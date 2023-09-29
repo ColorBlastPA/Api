@@ -6,6 +6,7 @@ import com.developer.colorblast.planning.service.PlanningService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,12 @@ public class PlanningServiceImpl implements PlanningService {
     @Override
     public List<PlanningEntity> findPlanningsByIdPro(Long idPro) {
         return planningRepository.findAllByIdPro(idPro);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByBookingId(Long idBooking) {
+        planningRepository.deleteByIdBooking(idBooking);
     }
 }
 
