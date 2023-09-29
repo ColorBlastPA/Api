@@ -82,6 +82,40 @@ public class EmailController {
 
     }
 
+    @GetMapping("/messageForClient/{email}/{IdPro}")
+    public String sendMessageForClientEmail(@PathVariable String email, @PathVariable Long IdPro) throws MessagingException {
+        Optional<ProfessionnelEntity> pro = professionnelService.findById(IdPro);
+        if(pro.isPresent()){
+            String to = email;
+            String from = "colorblastpa@gmail.com";
+            String subject = "Information message";
+
+            emailService.sendMessageForClientEmail(from,subject,pro.get(),to);
+            return "E-mail envoyé avec succès.";
+        }else{
+            return "User not found";
+        }
+
+    }
+
+    @GetMapping("/messageForPro/{email}/{IdClient}")
+    public String sendMessageForProEmail(@PathVariable String email, @PathVariable Long IdClient) throws MessagingException {
+        Optional<ClientEntity> client = clientService.findById(IdClient);
+        if(client.isPresent()){
+            String to = email;
+            String from = "colorblastpa@gmail.com";
+            String subject = "Information message";
+
+            emailService.sendMessageForProEmail(from,subject,client.get(),to);
+            return "E-mail envoyé avec succès.";
+        }else{
+            return "User not found";
+        }
+
+    }
+
+
+
 
 
     @GetMapping("/forgotPasswordClient/{email}")
@@ -96,7 +130,7 @@ public class EmailController {
             ClientEntity newClient = clientService.updateClient(client.get());
 
             String to = email;
-            String subject = "Test d'envoi d'e-mail";
+            String subject = "Nouveau mot de passe ColorBlast";
             String body = newPassword;
 
             emailService.sendEmail(to, subject, body);
@@ -119,7 +153,7 @@ public class EmailController {
             ProfessionnelEntity newPro = professionnelService.updateProfessionnel(pro.get());
 
             String to = email;
-            String subject = "Test d'envoi d'e-mail";
+            String subject = "Nouveau mot de passe ColorBlast";
             String body = newPassword;
 
             emailService.sendEmail(to, subject, body);

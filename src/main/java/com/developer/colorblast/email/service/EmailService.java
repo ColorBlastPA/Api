@@ -1,5 +1,8 @@
 package com.developer.colorblast.email.service;
 
+import com.developer.colorblast.client.entity.ClientEntity;
+import com.developer.colorblast.pro.entity.ProfessionnelEntity;
+import com.developer.colorblast.product.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -62,6 +65,53 @@ public class EmailService {
         message.setTo("colorblastpa@gmail.com");
         message.setSubject(subject);
         message.setText(body);
+        mailSender.send(message);
+    }
+
+    public void sendMessageForClientEmail(String from, String subject, ProfessionnelEntity pro, String to) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(subject);
+
+        // Utilisez HTML pour le contenu de l'e-mail avec un meilleur design
+        String htmlContent = "<html><body style='font-family: Arial, sans-serif;'>";
+        htmlContent += "<div style='background-color: #f2f2f2; padding: 20px;'>";
+        htmlContent += "<div style='background-color: #ffffff; border: 1px solid #dddddd; border-radius: 5px; padding: 20px;'>";
+        htmlContent += "<h1 style='color: #333333;'>Nouveau message de " + pro.getLastname() + " " + pro.getFirstname() + "</h1>";
+        htmlContent += "<p style='color: #555555;'>Pour information, " + pro.getLastname() + " " + pro.getFirstname() + " vous a envoyé un message.</p>";
+        htmlContent += "<p style='color: #555555;'>Si vous voulez voir son message, connectez-vous à l'application ColorBlast.</p>";
+        htmlContent += "</div>";
+        htmlContent += "</div>";
+        htmlContent += "</body></html>";
+
+        helper.setText(htmlContent, true);
+
+        mailSender.send(message);
+    }
+    public void sendMessageForProEmail(String from, String subject, ClientEntity client, String to) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(subject);
+
+        // Utilisez HTML pour le contenu de l'e-mail avec un meilleur design
+        String htmlContent = "<html><body>";
+        htmlContent += "<div style='background-color: #f2f2f2; padding: 20px;'>";
+        htmlContent += "<div style='background-color: #ffffff; border: 1px solid #dddddd; border-radius: 5px; padding: 20px;'>";
+        htmlContent += "<h1 style='color: #333333;'>Nouveau message de " + client.getLastname() + " " + client.getFirstname() + "</h1>";
+        htmlContent += "<p style='color: #555555;'>Pour information, " + client.getLastname() + " " + client.getFirstname() + " vous a envoyé un message.</p>";
+        htmlContent += "<p style='color: #555555;'>Si vous voulez voir son message, connectez-vous à l'application ColorBlast.</p>";
+        htmlContent += "</div>";
+        htmlContent += "</div>";
+        htmlContent += "</body></html>";
+
+        helper.setText(htmlContent, true);
+
         mailSender.send(message);
     }
 
